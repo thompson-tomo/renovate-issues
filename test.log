@@ -1,0 +1,906 @@
+ INFO: Renovate started
+       "renovateVersion": "43.66.3"
+DEBUG: Using RE2 regex engine
+DEBUG: Parsing configs
+DEBUG: No config file found on disk - skipping
+DEBUG: No additional config file found specified - skipping
+DEBUG: Converting GITHUB_COM_TOKEN into a global host rule
+DEBUG: File config
+       "config": {}
+DEBUG: Additional file config
+       "config": {}
+DEBUG: CLI config
+       "config": {"platform": "local"}
+DEBUG: Env config
+       "config": {
+         "hostRules": [
+           {"hostType": "github", "matchHost": "github.com", "token": "***********"}
+         ]
+       }
+DEBUG: Resolved global extends
+       "config": undefined
+DEBUG: Combined config
+       "config": {
+         "hostRules": [
+           {"hostType": "github", "matchHost": "github.com", "token": "***********"}
+         ],
+         "platform": "local"
+       }
+DEBUG: Enabling forkProcessing while in non-autodiscover mode
+DEBUG: Enabling onboardingNoDeps while in non-autodiscover mode
+DEBUG: Found valid git version: 2.43.0
+DEBUG: Setting global hostRules
+DEBUG: Adding token authentication for github.com (hostType=github) to hostRules
+DEBUG: Using baseDir: /tmp/renovate
+DEBUG: Using cacheDir: /tmp/renovate/cache
+DEBUG: Using containerbaseDir: /tmp/renovate/cache/containerbase
+DEBUG: Initializing Renovate internal cache into /tmp/renovate/cache/renovate/renovate-cache-v1
+DEBUG: Commits limit = null
+DEBUG: Setting global hostRules
+DEBUG: Adding token authentication for github.com (hostType=github) to hostRules
+DEBUG: validatePresets()
+ERROR: Unsupported node environment detected. Please update your node version.
+       "versions": {
+         "node": "22.17.1",
+         "acorn": "8.14.1",
+         "ada": "2.9.2",
+         "amaro": "0.4.1",
+         "ares": "1.34.5",
+         "brotli": "1.1.0",
+         "cjs_module_lexer": "2.1.0",
+         "cldr": "47.0",
+         "icu": "77.1",
+         "llhttp": "9.3.0",
+         "modules": "127",
+         "napi": "10",
+         "nbytes": "0.1.1",
+         "ncrypto": "0.0.1",
+         "nghttp2": "1.64.0",
+         "openssl": "3.0.16",
+         "simdjson": "3.12.3",
+         "simdutf": "6.4.2",
+         "sqlite": "3.50.0",
+         "tz": "2025b",
+         "undici": "6.21.2",
+         "unicode": "16.0",
+         "uv": "1.51.0",
+         "uvwasi": "0.0.21",
+         "v8": "12.4.254.21-node.27",
+         "zlib": "1.3.0.1-motley-780819f",
+         "zstd": "1.5.7"
+       },
+       "range": "^24.11.0"
+DEBUG: Reinitializing hostRules for repo
+DEBUG: Clearing hostRules
+DEBUG: Adding token authentication for github.com (hostType=github) to hostRules
+ INFO: Repository started (repository=local)
+       "renovateVersion": "43.66.3"
+DEBUG: Using localDir: /home/james/repos/renovate-issues (repository=local)
+DEBUG: PackageFiles.clear() - Package files deleted (repository=local)
+DEBUG: Resetting npmrc (repository=local)
+DEBUG: Resetting npmrc (repository=local)
+DEBUG: checkOnboarding() (repository=local)
+DEBUG: isOnboarded() (repository=local)
+DEBUG: findFile(renovate.json) (repository=local)
+DEBUG: Got file list using git (repository=local)
+DEBUG: findFile(renovate.json5) (repository=local)
+DEBUG: Got file list using git (repository=local)
+DEBUG: Config file exists, fileName: renovate.json5 (repository=local)
+DEBUG: Repo is onboarded (repository=local)
+DEBUG: Got file list using git (repository=local)
+DEBUG: Found renovate.json5 config file (repository=local)
+DEBUG: Repository config (repository=local)
+       "fileName": "renovate.json5",
+       "config": {
+         "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+         "extends": [
+           "config:best-practices",
+           "helpers:pinGitHubActionDigestsToSemver",
+           ":separateMultipleMajorReleases"
+         ],
+         "rangeStrategy": "bump",
+         "customManagers": [
+           {
+             "customType": "regex",
+             "description": "Update Pessimistic dependencies in gemspecs",
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'~>\\s(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "~> {{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": "Update Min dependencies in gemspecs",
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'>=\\s(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": ">= {{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": "Update pinned dependencies in gemspecs",
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "{{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": "Update dependencies in gemspecs",
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>(\\S+\\s)?[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "{{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": "Expected dependencies in gemspecs",
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(\\S+\\s)?(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "{{depVersion}}"
+           }
+         ]
+       }
+DEBUG: migrateAndValidate() (repository=local)
+DEBUG: No config migration necessary (repository=local)
+DEBUG: Post-massage config (repository=local)
+       "config": {
+         "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+         "extends": [
+           "config:best-practices",
+           "helpers:pinGitHubActionDigestsToSemver",
+           ":separateMultipleMajorReleases"
+         ],
+         "rangeStrategy": "bump",
+         "customManagers": [
+           {
+             "customType": "regex",
+             "description": ["Update Pessimistic dependencies in gemspecs"],
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'~>\\s(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "~> {{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": ["Update Min dependencies in gemspecs"],
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'>=\\s(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": ">= {{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": ["Update pinned dependencies in gemspecs"],
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "{{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": ["Update dependencies in gemspecs"],
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>(\\S+\\s)?[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "{{depVersion}}"
+           },
+           {
+             "customType": "regex",
+             "description": ["Expected dependencies in gemspecs"],
+             "managerFilePatterns": ["**/*.gemspec"],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(\\S+\\s)?(?<depVersion>[0-9.]+)'"
+             ],
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "currentValueTemplate": "{{depVersion}}"
+           }
+         ]
+       }
+DEBUG: Flattening nested packageRules (repository=local)
+DEBUG: Resolved config needs migrating (repository=local)
+DEBUG: Found repo ignorePaths (repository=local)
+       "ignorePaths": [
+         "**/node_modules/**",
+         "**/bower_components/**",
+         "**/vendor/**",
+         "**/examples/**",
+         "**/__tests__/**",
+         "**/test/**",
+         "**/tests/**",
+         "**/__fixtures__/**"
+       ]
+DEBUG: No vulnerability alerts found (repository=local)
+DEBUG: No baseBranches (repository=local)
+DEBUG: extract() (repository=local)
+DEBUG: Got file list using git (repository=local)
+DEBUG: Using file pattern: /(^|/)tasks/[^/]+\.ya?ml$/ for manager ansible (repository=local)
+DEBUG: Using file pattern: /(^|/)(galaxy|requirements)(\.ansible)?\.ya?ml$/ for manager ansible-galaxy (repository=local)
+DEBUG: Using file pattern: /(^|/)\.tool-versions$/ for manager asdf (repository=local)
+DEBUG: Using file pattern: /(^|/).azuredevops/.+\.ya?ml$/ for manager azure-pipelines (repository=local)
+DEBUG: Using file pattern: /azure.*pipelines?.*\.ya?ml$/ for manager azure-pipelines (repository=local)
+DEBUG: Using file pattern: /(^|/)batect(-bundle)?\.ya?ml$/ for manager batect (repository=local)
+DEBUG: Using file pattern: /(^|/)batect$/ for manager batect-wrapper (repository=local)
+DEBUG: Using file pattern: /(^|/)WORKSPACE(|\.bazel|\.bzlmod)$/ for manager bazel (repository=local)
+DEBUG: Using file pattern: /\.WORKSPACE\.bazel$/ for manager bazel (repository=local)
+DEBUG: Using file pattern: /\.bzl$/ for manager bazel (repository=local)
+DEBUG: Using file pattern: /(^|/|\.)MODULE\.bazel$/ for manager bazel-module (repository=local)
+DEBUG: Using file pattern: /(^|/)\.bazelversion$/ for manager bazelisk (repository=local)
+DEBUG: Using file pattern: /\.bicep$/ for manager bicep (repository=local)
+DEBUG: Using file pattern: /(^|/)\.?bitbucket-pipelines\.ya?ml$/ for manager bitbucket-pipelines (repository=local)
+DEBUG: Using file pattern: /(^|/)bitrise\.ya?ml$/ for manager bitrise (repository=local)
+DEBUG: Using file pattern: /buildkite\.ya?ml/ for manager buildkite (repository=local)
+DEBUG: Using file pattern: /\.buildkite/.+\.ya?ml$/ for manager buildkite (repository=local)
+DEBUG: Using file pattern: /(^|/)project\.toml$/ for manager buildpacks (repository=local)
+DEBUG: Using file pattern: /(^|/)bun\.lockb?$/ for manager bun (repository=local)
+DEBUG: Using file pattern: /(^|/)package\.json$/ for manager bun (repository=local)
+DEBUG: Using file pattern: /(^|/)\.bun-version$/ for manager bun-version (repository=local)
+DEBUG: Using file pattern: /(^|/)Gemfile$/ for manager bundler (repository=local)
+DEBUG: Using file pattern: /\.cake$/ for manager cake (repository=local)
+DEBUG: Using file pattern: /(^|/)Cargo\.toml$/ for manager cargo (repository=local)
+DEBUG: Using file pattern: /(^|/)\.circleci/.+\.ya?ml$/ for manager circleci (repository=local)
+DEBUG: Using file pattern: /(^|/)cloudbuild\.ya?ml/ for manager cloudbuild (repository=local)
+DEBUG: Using file pattern: /(^|/)Podfile$/ for manager cocoapods (repository=local)
+DEBUG: Using file pattern: /(^|/)([\w-]*)composer\.json$/ for manager composer (repository=local)
+DEBUG: Using file pattern: /(^|/)conanfile\.(txt|py)$/ for manager conan (repository=local)
+DEBUG: Using file pattern: /(^|/)\.copier-answers(\..+)?\.ya?ml/ for manager copier (repository=local)
+DEBUG: Using file pattern: /(^|/)cpanfile$/ for manager cpanfile (repository=local)
+DEBUG: Using file pattern: /^\.crow(?:/[^/]+)?\.ya?ml$/ for manager crow (repository=local)
+DEBUG: Using file pattern: /(^|/)(?:deps|bb)\.edn$/ for manager deps-edn (repository=local)
+DEBUG: Using file pattern: /(^|/)devbox\.json$/ for manager devbox (repository=local)
+DEBUG: Using file pattern: /^.devcontainer/devcontainer.json$/ for manager devcontainer (repository=local)
+DEBUG: Using file pattern: /^.devcontainer.json$/ for manager devcontainer (repository=local)
+DEBUG: Using file pattern: /(^|/)(?:docker-)?compose[^/]*\.ya?ml$/ for manager docker-compose (repository=local)
+DEBUG: Using file pattern: /(^|/|\.)([Dd]ocker|[Cc]ontainer)file$/ for manager dockerfile (repository=local)
+DEBUG: Using file pattern: /(^|/)([Dd]ocker|[Cc]ontainer)file[^/]*$/ for manager dockerfile (repository=local)
+DEBUG: Using file pattern: /(^|/)\.drone\.yml$/ for manager droneci (repository=local)
+DEBUG: Using file pattern: /(^|/)fleet\.ya?ml/ for manager fleet (repository=local)
+DEBUG: Using file pattern: /(?:^|/)gotk-components\.ya?ml$/ for manager flux (repository=local)
+DEBUG: Using file pattern: /(^|/)\.fvm/fvm_config\.json$/ for manager fvm (repository=local)
+DEBUG: Using file pattern: /(^|/)\.fvmrc$/ for manager fvm (repository=local)
+DEBUG: Using file pattern: /(^|/)\.gitmodules$/ for manager git-submodules (repository=local)
+DEBUG: Using file pattern: /(^|/)(workflow-templates|\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\.ya?ml$/ for manager github-actions (repository=local)
+DEBUG: Using file pattern: /(^|/)action\.ya?ml$/ for manager github-actions (repository=local)
+DEBUG: Using file pattern: /\.gitlab-ci\.ya?ml$/ for manager gitlabci (repository=local)
+DEBUG: Using file pattern: /\.gitlab-ci\.ya?ml$/ for manager gitlabci-include (repository=local)
+DEBUG: Using file pattern: /(^|/)gleam.toml$/ for manager gleam (repository=local)
+DEBUG: Using file pattern: /(^|/)go\.mod$/ for manager gomod (repository=local)
+DEBUG: Using file pattern: /\.gradle(\.kts)?$/ for manager gradle (repository=local)
+DEBUG: Using file pattern: /(^|/)gradle\.properties$/ for manager gradle (repository=local)
+DEBUG: Using file pattern: /(^|/)gradle/.+\.toml$/ for manager gradle (repository=local)
+DEBUG: Using file pattern: /(^|/)buildSrc/.+\.kt$/ for manager gradle (repository=local)
+DEBUG: Using file pattern: /\.versions\.toml$/ for manager gradle (repository=local)
+DEBUG: Using file pattern: /(^|/)versions.props$/ for manager gradle (repository=local)
+DEBUG: Using file pattern: /(^|/)versions.lock$/ for manager gradle (repository=local)
+DEBUG: Using file pattern: /(^|/)gradle/wrapper/gradle-wrapper\.properties$/ for manager gradle-wrapper (repository=local)
+DEBUG: Using file pattern: /\.cabal$/ for manager haskell-cabal (repository=local)
+DEBUG: Using file pattern: /(^|/)requirements\.ya?ml$/ for manager helm-requirements (repository=local)
+DEBUG: Using file pattern: /(^|/)values\.ya?ml$/ for manager helm-values (repository=local)
+DEBUG: Using file pattern: /(^|/)helmfile\.ya?ml(?:\.gotmpl)?$/ for manager helmfile (repository=local)
+DEBUG: Using file pattern: /(^|/)helmfile\.d/.+\.ya?ml(?:\.gotmpl)?$/ for manager helmfile (repository=local)
+DEBUG: Using file pattern: /(^|/)Chart\.ya?ml$/ for manager helmv3 (repository=local)
+DEBUG: Using file pattern: /(^|/)bin/hermit$/ for manager hermit (repository=local)
+DEBUG: Using file pattern: /^Formula/[^/]+[.]rb$/ for manager homebrew (repository=local)
+DEBUG: Using file pattern: /\.html?$/ for manager html (repository=local)
+DEBUG: Using file pattern: /(^|/)plugins\.(txt|ya?ml)$/ for manager jenkins (repository=local)
+DEBUG: Using file pattern: /(^|/)jsonnetfile\.json$/ for manager jsonnet-bundler (repository=local)
+DEBUG: Using file pattern: /^.+\.main\.kts$/ for manager kotlin-script (repository=local)
+DEBUG: Using file pattern: /(^|/)kustomization\.ya?ml$/ for manager kustomize (repository=local)
+DEBUG: Using file pattern: /(^|/)project\.clj$/ for manager leiningen (repository=local)
+DEBUG: Using file pattern: /(^|/|\.)pom\.xml$/ for manager maven (repository=local)
+DEBUG: Using file pattern: /^(((\.mvn)|(\.m2))/)?settings\.xml$/ for manager maven (repository=local)
+DEBUG: Using file pattern: /(^|/)\.mvn/extensions\.xml$/ for manager maven (repository=local)
+DEBUG: Using file pattern: /(^|\/).mvn/wrapper/maven-wrapper.properties$/ for manager maven-wrapper (repository=local)
+DEBUG: Using file pattern: /(^|\/)mvnw(.cmd)?$/ for manager maven-wrapper (repository=local)
+DEBUG: Using file pattern: /(^|/)package\.js$/ for manager meteor (repository=local)
+DEBUG: Using file pattern: /(^|/)Mintfile$/ for manager mint (repository=local)
+DEBUG: Using file pattern: **/{,.}mise{,.*}.toml for manager mise (repository=local)
+DEBUG: Using file pattern: **/{,.}mise/config{,.*}.toml for manager mise (repository=local)
+DEBUG: Using file pattern: **/.config/mise{,.*}.toml for manager mise (repository=local)
+DEBUG: Using file pattern: **/.config/mise/{mise,config}{,.*}.toml for manager mise (repository=local)
+DEBUG: Using file pattern: **/.config/mise/conf.d/*.toml for manager mise (repository=local)
+DEBUG: Using file pattern: **/.rtx{,.*}.toml for manager mise (repository=local)
+DEBUG: Using file pattern: /(^|/)mix\.exs$/ for manager mix (repository=local)
+DEBUG: Using file pattern: /(^|/)flake\.nix$/ for manager nix (repository=local)
+DEBUG: Using file pattern: /(^|/)\.node-version$/ for manager nodenv (repository=local)
+DEBUG: Using file pattern: /(^|/)package\.json$/ for manager npm (repository=local)
+DEBUG: Using file pattern: /(^|/)pnpm-workspace\.yaml$/ for manager npm (repository=local)
+DEBUG: Using file pattern: /(^|/)\.yarnrc\.yml$/ for manager npm (repository=local)
+DEBUG: Using file pattern: /\.(?:cs|fs|vb)proj$/ for manager nuget (repository=local)
+DEBUG: Using file pattern: /\.(?:props|targets)$/ for manager nuget (repository=local)
+DEBUG: Using file pattern: /(^|/)dotnet-tools\.json$/ for manager nuget (repository=local)
+DEBUG: Using file pattern: /(^|/)global\.json$/ for manager nuget (repository=local)
+DEBUG: Using file pattern: /(^|/)\.nvmrc$/ for manager nvm (repository=local)
+DEBUG: Using file pattern: /(^|/)src/main/features/.+\.json$/ for manager osgi (repository=local)
+DEBUG: Using file pattern: /(^|/)pyproject\.toml$/ for manager pep621 (repository=local)
+DEBUG: Using file pattern: /(^|/)[\w-]*requirements([-.]\w+)?\.(txt|pip)$/ for manager pip_requirements (repository=local)
+DEBUG: Using file pattern: /(^|/)setup\.py$/ for manager pip_setup (repository=local)
+DEBUG: Using file pattern: /(^|/)Pipfile$/ for manager pipenv (repository=local)
+DEBUG: Using file pattern: /(^|/)pyproject\.toml$/ for manager pixi (repository=local)
+DEBUG: Using file pattern: /(^|/)pixi\.toml$/ for manager pixi (repository=local)
+DEBUG: Using file pattern: /(^|/)pyproject\.toml$/ for manager poetry (repository=local)
+DEBUG: Using file pattern: /(^|/)\.pre-commit-config\.ya?ml$/ for manager pre-commit (repository=local)
+DEBUG: Using file pattern: /(^|/)pubspec\.ya?ml$/ for manager pub (repository=local)
+DEBUG: Using file pattern: /(^|/)Puppetfile$/ for manager puppet (repository=local)
+DEBUG: Using file pattern: /(^|/)\.python-version$/ for manager pyenv (repository=local)
+DEBUG: Using file pattern: /.+\.container$/ for manager quadlet (repository=local)
+DEBUG: Using file pattern: /.+\.image$/ for manager quadlet (repository=local)
+DEBUG: Using file pattern: /.+\.volume$/ for manager quadlet (repository=local)
+DEBUG: Using file pattern: renovate.json for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: renovate.json5 for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: .github/renovate.json for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: .github/renovate.json5 for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: .gitlab/renovate.json for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: .gitlab/renovate.json5 for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: .renovaterc for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: .renovaterc.json for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: .renovaterc.json5 for manager renovate-config-presets (repository=local)
+DEBUG: Using file pattern: /(^|/)\.ruby-version$/ for manager ruby-version (repository=local)
+DEBUG: Using file pattern: /(^|/)runtime.txt$/ for manager runtime-version (repository=local)
+DEBUG: Using file pattern: /\.sbt$/ for manager sbt (repository=local)
+DEBUG: Using file pattern: /project/[^/]*\.scala$/ for manager sbt (repository=local)
+DEBUG: Using file pattern: /project/build\.properties$/ for manager sbt (repository=local)
+DEBUG: Using file pattern: /(^|/)repositories$/ for manager sbt (repository=local)
+DEBUG: Using file pattern: /(^|/)\.scalafmt.conf$/ for manager scalafmt (repository=local)
+DEBUG: Using file pattern: /(^|/)setup\.cfg$/ for manager setup-cfg (repository=local)
+DEBUG: Using file pattern: /(^|/)Package\.swift/ for manager swift (repository=local)
+DEBUG: Using file pattern: **/*.tf for manager terraform (repository=local)
+DEBUG: Using file pattern: **/*.tofu for manager terraform (repository=local)
+DEBUG: Using file pattern: /(^|/)\.terraform-version$/ for manager terraform-version (repository=local)
+DEBUG: Using file pattern: /(^|/)terragrunt\.hcl$/ for manager terragrunt (repository=local)
+DEBUG: Using file pattern: /(^|/)\.terragrunt-version$/ for manager terragrunt-version (repository=local)
+DEBUG: Using file pattern: /\.tflint\.hcl$/ for manager tflint-plugin (repository=local)
+DEBUG: Using file pattern: /^\.travis\.ya?ml$/ for manager travis (repository=local)
+DEBUG: Using file pattern: /\.typ$/ for manager typst (repository=local)
+DEBUG: Using file pattern: **/ProjectSettings/ProjectVersion.txt for manager unity3d (repository=local)
+DEBUG: Using file pattern: /(^|/)\.vela\.ya?ml$/ for manager velaci (repository=local)
+DEBUG: Using file pattern: /(^|/)vendir\.yml$/ for manager vendir (repository=local)
+DEBUG: Using file pattern: /^\.woodpecker(?:/[^/]+)?\.ya?ml$/ for manager woodpecker (repository=local)
+DEBUG: Using file pattern: **/{j,t}sconfig.json for manager regex (repository=local)
+DEBUG: Using file pattern: **/{j,t}sconfig.*.json for manager regex (repository=local)
+DEBUG: Using file pattern: **/*.gemspec for manager regex (repository=local)
+DEBUG: Using file pattern: **/*.gemspec for manager regex (repository=local)
+DEBUG: Using file pattern: **/*.gemspec for manager regex (repository=local)
+DEBUG: Using file pattern: **/*.gemspec for manager regex (repository=local)
+DEBUG: Using file pattern: **/*.gemspec for manager regex (repository=local)
+DEBUG: Matched 1 file(s) for manager bun: package.json (repository=local)
+DEBUG: No bun lockfiles found (repository=local)
+DEBUG: Matched 1 file(s) for manager npm: package.json (repository=local)
+DEBUG: Matched 1 file(s) for manager renovate-config-presets: renovate.json5 (repository=local)
+DEBUG: Matched 1 file(s) for manager regex: instrumentation/package.gemspec (repository=local)
+DEBUG: Matched 1 file(s) for manager regex: instrumentation/package.gemspec (repository=local)
+DEBUG: Matched 1 file(s) for manager regex: instrumentation/package.gemspec (repository=local)
+DEBUG: Matched 1 file(s) for manager regex: instrumentation/package.gemspec (repository=local)
+DEBUG: Matched 1 file(s) for manager regex: instrumentation/package.gemspec (repository=local)
+DEBUG: npm file package.json has name undefined (repository=local)
+DEBUG: Detecting pnpm Workspaces (repository=local)
+DEBUG: Detecting workspaces (repository=local)
+DEBUG: Finding locked versions (repository=local)
+DEBUG: Found package-lock.json for package.json (repository=local)
+DEBUG: manager extract durations (ms) (repository=local)
+       "managers": {"bun": 1, "npm": 25, "regex": 12, "renovate-config-presets": 6}
+DEBUG: Found npm package files (repository=local)
+DEBUG: Found regex package files (repository=local)
+DEBUG: Found regex package files (repository=local)
+DEBUG: Found regex package files (repository=local)
+DEBUG: Found regex package files (repository=local)
+DEBUG: Found regex package files (repository=local)
+DEBUG: Found 6 package file(s) (repository=local)
+ INFO: Dependency extraction complete (repository=local)
+       "stats": {
+         "managers": {
+           "npm": {"fileCount": 1, "depCount": 1},
+           "regex": {"fileCount": 5, "depCount": 9}
+         },
+         "total": {"fileCount": 6, "depCount": 10}
+       }
+DEBUG: Dependency opentelemetry-api has unsupported/unversioned value &gt;&#x3D; 1.7 (versioning=ruby) (repository=local)
+DEBUG: Skipping opentelemetry-api because no currentDigest or pinDigests (repository=local)
+DEBUG: Dependency opentelemetry-common has unsupported/unversioned value ~&gt; 0.21 (versioning=ruby) (repository=local)
+DEBUG: Skipping opentelemetry-common because no currentDigest or pinDigests (repository=local)
+DEBUG: hostRules: no authentication for registry.npmjs.org (repository=local)
+DEBUG: hostRules: no authentication for rubygems.org (repository=local)
+DEBUG: Using throttle 125 intervalMs for host rubygems.org (repository=local)
+DEBUG: Using queue: host=rubygems.org, concurrency=16 (repository=local)
+DEBUG: Using queue: host=registry.npmjs.org, concurrency=999 (repository=local)
+DEBUG: http cache: saving https://registry.npmjs.org/renovate (etag=W/"31ab4d95c855b620f004b5c03e31606c", lastModified=Fri, 13 Mar 2026 07:52:46 GMT) (repository=local)
+DEBUG: PackageFiles.add() - Package file saved for base branch (repository=local)
+DEBUG: Package releases lookups complete (repository=local)
+DEBUG: Repository libYears (repository=local)
+       "libYears": {
+         "managers": {"npm": 0.00045820690639269404, "regex": 1.9720372805682396},
+         "total": 1.972495487474632
+       },
+       "dependencyStatus": {"outdated": 4, "total": 8}
+DEBUG: branchifyUpgrades (repository=local)
+DEBUG: detectSemanticCommits() (repository=local)
+DEBUG: getCommitMessages (repository=local)
+DEBUG: semanticCommits: detected "unknown" (repository=local)
+DEBUG: semanticCommits: disabled (repository=local)
+DEBUG: 7 flattened updates found: renovate, opentelemetry-helpers-mysql, opentelemetry-helpers-mysql, opentelemetry-api, opentelemetry-common, opentelemetry-helpers-mysql (repository=local)
+DEBUG: Returning 5 branch(es) (repository=local)
+DEBUG: Branch is not pending, removing pending upgrades (repository=local, branch=renovate/lock-file-maintenance)
+DEBUG: Branch is not pending, removing pending upgrades (repository=local, branch=renovate/opentelemetry-helpers-mysql-0.x)
+DEBUG: Branch is not pending, removing pending upgrades (repository=local, branch=renovate/opentelemetry-api-1.x)
+DEBUG: Branch is not pending, removing pending upgrades (repository=local, branch=renovate/opentelemetry-common-0.x)
+DEBUG: config.repoIsOnboarded=true (repository=local)
+DEBUG: packageFiles with updates (repository=local)
+       "config": {
+         "npm": [
+           {
+             "deps": [
+               {
+                 "depType": "dependencies",
+                 "depName": "renovate",
+                 "currentValue": "43.66.3",
+                 "datasource": "npm",
+                 "prettyDepType": "dependency",
+                 "lockedVersion": "43.66.3",
+                 "updates": [
+                   {
+                     "bucket": "non-major",
+                     "newVersion": "43.66.4",
+                     "newValue": "43.66.4",
+                     "releaseTimestamp": "2026-03-13T07:52:35.203Z",
+                     "newVersionAgeInDays": 0,
+                     "newMajor": 43,
+                     "newMinor": 66,
+                     "newPatch": 4,
+                     "updateType": "patch",
+                     "isBreaking": false,
+                     "pendingChecks": true,
+                     "libYears": 0.00045820690639269404,
+                     "branchName": "renovate/renovate-43.x"
+                   }
+                 ],
+                 "packageName": "renovate",
+                 "versioning": "npm",
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/renovatebot/renovate",
+                 "registryUrl": "https://registry.npmjs.org",
+                 "homepage": "https://renovatebot.com",
+                 "currentVersion": "43.66.3",
+                 "currentVersionTimestamp": "2026-03-13T03:51:45.190Z",
+                 "currentVersionAgeInDays": 0,
+                 "isSingleVersion": true,
+                 "fixedVersion": "43.66.3"
+               }
+             ],
+             "extractedConstraints": {"npm": ">=7"},
+             "managerData": {
+               "hasPackageManager": false,
+               "npmLock": "package-lock.json",
+               "yarnZeroInstall": false,
+               "npmrcFileName": null
+             },
+             "skipInstalls": true,
+             "packageFile": "package.json",
+             "lockFiles": ["package-lock.json"]
+           }
+         ],
+         "regex": [
+           {
+             "deps": [
+               {
+                 "packageName": "opentelemetry-common",
+                 "currentValue": "~> 0.21",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-common', '~> 0.21'",
+                 "depName": "opentelemetry-common",
+                 "updates": [],
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/open-telemetry/opentelemetry-ruby",
+                 "registryUrl": "https://rubygems.org",
+                 "sourceDirectory": "common",
+                 "changelogUrl": "https://open-telemetry.github.io/opentelemetry-ruby/opentelemetry-common/v0.23.0/file.CHANGELOG.html",
+                 "mostRecentTimestamp": "2025-10-14T16:56:18.431Z",
+                 "isAbandoned": false,
+                 "currentVersion": "0.23.0",
+                 "currentVersionTimestamp": "2025-10-14T16:56:18.431Z",
+                 "currentVersionAgeInDays": 149
+               }
+             ],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'~>\\s(?<depVersion>[0-9.]+)'"
+             ],
+             "currentValueTemplate": "~> {{depVersion}}",
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "packageFile": "instrumentation/package.gemspec"
+           },
+           {
+             "deps": [
+               {
+                 "packageName": "opentelemetry-api",
+                 "currentValue": ">= 1.7",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-api', '>= 1.7'",
+                 "depName": "opentelemetry-api",
+                 "updates": [],
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/open-telemetry/opentelemetry-ruby",
+                 "registryUrl": "https://rubygems.org",
+                 "sourceDirectory": "api",
+                 "changelogUrl": "https://open-telemetry.github.io/opentelemetry-ruby/opentelemetry-api/v1.8.0/file.CHANGELOG.html",
+                 "mostRecentTimestamp": "2026-03-10T19:03:33.889Z",
+                 "isAbandoned": false,
+                 "currentVersion": "1.8.0",
+                 "currentVersionTimestamp": "2026-03-10T19:03:33.889Z",
+                 "currentVersionAgeInDays": 2
+               }
+             ],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'>=\\s(?<depVersion>[0-9.]+)'"
+             ],
+             "currentValueTemplate": ">= {{depVersion}}",
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "packageFile": "instrumentation/package.gemspec"
+           },
+           {
+             "deps": [
+               {
+                 "packageName": "opentelemetry-helpers-mysql",
+                 "currentValue": "0.3.0",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-helpers-mysql', '0.3.0'",
+                 "depName": "opentelemetry-helpers-mysql",
+                 "updates": [
+                   {
+                     "bucket": "non-major",
+                     "newVersion": "0.4.0",
+                     "newValue": "0.4.0",
+                     "releaseTimestamp": "2025-10-22T17:29:42.941Z",
+                     "newVersionAgeInDays": 141,
+                     "newMajor": 0,
+                     "newMinor": 4,
+                     "newPatch": 0,
+                     "updateType": "minor",
+                     "isBreaking": false,
+                     "libYears": 0.06037466400304414,
+                     "branchName": "renovate/opentelemetry-helpers-mysql-0.x"
+                   }
+                 ],
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/open-telemetry/opentelemetry-ruby-contrib",
+                 "registryUrl": "https://rubygems.org",
+                 "sourceDirectory": "helpers/mysql",
+                 "changelogUrl": "https://rubydoc.info/gems/opentelemetry-helpers-mysql/0.4.0/file/CHANGELOG.md",
+                 "mostRecentTimestamp": "2025-10-22T17:29:42.941Z",
+                 "isAbandoned": false,
+                 "currentVersion": "0.3.0",
+                 "currentVersionTimestamp": "2025-09-30T16:36:47.537Z",
+                 "currentVersionAgeInDays": 163,
+                 "isSingleVersion": true,
+                 "fixedVersion": "0.3.0"
+               }
+             ],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>[0-9.]+)'"
+             ],
+             "currentValueTemplate": "{{depVersion}}",
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "packageFile": "instrumentation/package.gemspec"
+           },
+           {
+             "deps": [
+               {
+                 "packageName": "opentelemetry-api",
+                 "currentValue": "&gt;&#x3D; 1.7",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-api', '>= 1.7'",
+                 "depName": "opentelemetry-api",
+                 "updates": [],
+                 "warnings": [],
+                 "skipReason": "invalid-value"
+               },
+               {
+                 "packageName": "opentelemetry-common",
+                 "currentValue": "~&gt; 0.21",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-common', '~> 0.21'",
+                 "depName": "opentelemetry-common",
+                 "updates": [],
+                 "warnings": [],
+                 "skipReason": "invalid-value"
+               },
+               {
+                 "packageName": "opentelemetry-helpers-mysql",
+                 "currentValue": "0.3.0",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-helpers-mysql', '0.3.0'",
+                 "depName": "opentelemetry-helpers-mysql",
+                 "updates": [
+                   {
+                     "bucket": "non-major",
+                     "newVersion": "0.4.0",
+                     "newValue": "0.4.0",
+                     "releaseTimestamp": "2025-10-22T17:29:42.941Z",
+                     "newVersionAgeInDays": 141,
+                     "newMajor": 0,
+                     "newMinor": 4,
+                     "newPatch": 0,
+                     "updateType": "minor",
+                     "isBreaking": false,
+                     "libYears": 0.06037466400304414,
+                     "branchName": "renovate/opentelemetry-helpers-mysql-0.x"
+                   }
+                 ],
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/open-telemetry/opentelemetry-ruby-contrib",
+                 "registryUrl": "https://rubygems.org",
+                 "sourceDirectory": "helpers/mysql",
+                 "changelogUrl": "https://rubydoc.info/gems/opentelemetry-helpers-mysql/0.4.0/file/CHANGELOG.md",
+                 "mostRecentTimestamp": "2025-10-22T17:29:42.941Z",
+                 "isAbandoned": false,
+                 "currentVersion": "0.3.0",
+                 "currentVersionTimestamp": "2025-09-30T16:36:47.537Z",
+                 "currentVersionAgeInDays": 163,
+                 "isSingleVersion": true,
+                 "fixedVersion": "0.3.0"
+               }
+             ],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>(\\S+\\s)?[0-9.]+)'"
+             ],
+             "currentValueTemplate": "{{depVersion}}",
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "packageFile": "instrumentation/package.gemspec"
+           },
+           {
+             "deps": [
+               {
+                 "packageName": "opentelemetry-api",
+                 "currentValue": "1.7",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-api', '>= 1.7'",
+                 "depName": "opentelemetry-api",
+                 "updates": [
+                   {
+                     "bucket": "non-major",
+                     "newVersion": "1.8.0",
+                     "newValue": "1.8.0",
+                     "releaseTimestamp": "2026-03-10T19:03:33.889Z",
+                     "newVersionAgeInDays": 2,
+                     "newMajor": 1,
+                     "newMinor": 8,
+                     "newPatch": 0,
+                     "updateType": "minor",
+                     "isBreaking": false,
+                     "libYears": 0.47638713555936074,
+                     "branchName": "renovate/opentelemetry-api-1.x"
+                   }
+                 ],
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/open-telemetry/opentelemetry-ruby",
+                 "registryUrl": "https://rubygems.org",
+                 "sourceDirectory": "api",
+                 "changelogUrl": "https://open-telemetry.github.io/opentelemetry-ruby/opentelemetry-api/v1.8.0/file.CHANGELOG.html",
+                 "mostRecentTimestamp": "2026-03-10T19:03:33.889Z",
+                 "isAbandoned": false,
+                 "currentVersion": "1.7.0",
+                 "currentVersionTimestamp": "2025-09-17T21:54:29.182Z",
+                 "currentVersionAgeInDays": 176,
+                 "isSingleVersion": true,
+                 "fixedVersion": "1.7"
+               },
+               {
+                 "packageName": "opentelemetry-common",
+                 "currentValue": "0.21",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-common', '~> 0.21'",
+                 "depName": "opentelemetry-common",
+                 "updates": [
+                   {
+                     "bucket": "non-major",
+                     "newVersion": "0.23.0",
+                     "newValue": "0.23.0",
+                     "releaseTimestamp": "2025-10-14T16:56:18.431Z",
+                     "newVersionAgeInDays": 149,
+                     "newMajor": 0,
+                     "newMinor": 23,
+                     "newPatch": 0,
+                     "updateType": "minor",
+                     "isBreaking": false,
+                     "libYears": 1.4352754810058346,
+                     "branchName": "renovate/opentelemetry-common-0.x"
+                   }
+                 ],
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/open-telemetry/opentelemetry-ruby",
+                 "registryUrl": "https://rubygems.org",
+                 "sourceDirectory": "common",
+                 "changelogUrl": "https://open-telemetry.github.io/opentelemetry-ruby/opentelemetry-common/v0.23.0/file.CHANGELOG.html",
+                 "mostRecentTimestamp": "2025-10-14T16:56:18.431Z",
+                 "isAbandoned": false,
+                 "currentVersion": "0.21.0",
+                 "currentVersionTimestamp": "2024-05-08T19:55:30.862Z",
+                 "currentVersionAgeInDays": 673,
+                 "isSingleVersion": true,
+                 "fixedVersion": "0.21"
+               },
+               {
+                 "packageName": "opentelemetry-helpers-mysql",
+                 "currentValue": "0.3.0",
+                 "datasource": "rubygems",
+                 "versioning": "ruby",
+                 "depType": "dependency",
+                 "replaceString": ".add_dependency 'opentelemetry-helpers-mysql', '0.3.0'",
+                 "depName": "opentelemetry-helpers-mysql",
+                 "updates": [
+                   {
+                     "bucket": "non-major",
+                     "newVersion": "0.4.0",
+                     "newValue": "0.4.0",
+                     "releaseTimestamp": "2025-10-22T17:29:42.941Z",
+                     "newVersionAgeInDays": 141,
+                     "newMajor": 0,
+                     "newMinor": 4,
+                     "newPatch": 0,
+                     "updateType": "minor",
+                     "isBreaking": false,
+                     "libYears": 0.06037466400304414,
+                     "branchName": "renovate/opentelemetry-helpers-mysql-0.x"
+                   }
+                 ],
+                 "warnings": [],
+                 "sourceUrl": "https://github.com/open-telemetry/opentelemetry-ruby-contrib",
+                 "registryUrl": "https://rubygems.org",
+                 "sourceDirectory": "helpers/mysql",
+                 "changelogUrl": "https://rubydoc.info/gems/opentelemetry-helpers-mysql/0.4.0/file/CHANGELOG.md",
+                 "mostRecentTimestamp": "2025-10-22T17:29:42.941Z",
+                 "isAbandoned": false,
+                 "currentVersion": "0.3.0",
+                 "currentVersionTimestamp": "2025-09-30T16:36:47.537Z",
+                 "currentVersionAgeInDays": 163,
+                 "isSingleVersion": true,
+                 "fixedVersion": "0.3.0"
+               }
+             ],
+             "matchStrings": [
+               ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(\\S+\\s)?(?<depVersion>[0-9.]+)'"
+             ],
+             "currentValueTemplate": "{{depVersion}}",
+             "datasourceTemplate": "rubygems",
+             "versioningTemplate": "ruby",
+             "packageFile": "instrumentation/package.gemspec"
+           }
+         ]
+       }
+DEBUG: detectSemanticCommits() (repository=local)
+DEBUG: semanticCommits: returning "disabled" from cache (repository=local)
+DEBUG: Repository timing splits (milliseconds) (repository=local)
+       "splits": {"init": 588, "onboarding": 0, "extract": 184, "lookup": 7614, "update": 0},
+       "total": 8386
+DEBUG: Package cache statistics (repository=local)
+       "get": {"count": 7, "avgMs": 7, "medianMs": 5, "maxMs": 12, "totalMs": 47},
+       "set": {"count": 7, "avgMs": 668, "medianMs": 3, "maxMs": 4651, "totalMs": 4675}
+DEBUG: Datasource cache statistics (repository=local)
+       "rubygems": {"https://rubygems.org": {"hit": 0, "miss": 0, "set": 0, "skip": 3}},
+       "npm": {"https://registry.npmjs.org": {"hit": 0, "miss": 0, "set": 0, "skip": 1}}
+DEBUG: HTTP statistics (repository=local)
+       "hosts": {
+         "registry.npmjs.org": {
+           "count": 1,
+           "reqAvgMs": 1279,
+           "reqMedianMs": 1279,
+           "reqMaxMs": 1279,
+           "queueAvgMs": 0,
+           "queueMedianMs": 0,
+           "queueMaxMs": 0
+         },
+         "rubygems.org": {
+           "count": 7,
+           "reqAvgMs": 744,
+           "reqMedianMs": 95,
+           "reqMaxMs": 3198,
+           "queueAvgMs": 57,
+           "queueMedianMs": 2,
+           "queueMaxMs": 247
+         }
+       },
+       "requests": 8
+DEBUG: HTTP cache statistics (repository=local)
+       "https://registry.npmjs.org": {"/renovate": {"hit": 0, "miss": 1}}
+DEBUG: Lookup statistics (repository=local)
+       "rubygems": {"count": 9, "avgMs": 5381, "medianMs": 6586, "maxMs": 7439, "totalMs": 48428},
+       "npm": {"count": 1, "avgMs": 7389, "medianMs": 7389, "maxMs": 7389, "totalMs": 7389}
+DEBUG: Cache fallback URLs (repository=local)
+       "count": 0,
+       "hits": {}
+DEBUG: Git operations statistics (repository=local)
+ INFO: Repository finished (repository=local)
+       "cloned": undefined,
+       "durationMs": 8386,
+       "result": undefined,
+       "status": undefined,
+       "enabled": undefined,
+       "onboarded": undefined
+DEBUG: Checking file package cache for expired items
+DEBUG: Deleted 0 of 7 file cached entries in 25ms
+ INFO: Renovate is exiting with a non-zero code due to the following logged errors
+       "loggerErrors": [
+         {
+           "name": "renovate",
+           "level": 50,
+           "logContext": "a1765bff-d181-4b42-b345-6a0b89ae7b5a",
+           "versions": {
+             "node": "22.17.1",
+             "acorn": "8.14.1",
+             "ada": "2.9.2",
+             "amaro": "0.4.1",
+             "ares": "1.34.5",
+             "brotli": "1.1.0",
+             "cjs_module_lexer": "2.1.0",
+             "cldr": "47.0",
+             "icu": "77.1",
+             "llhttp": "9.3.0",
+             "modules": "127",
+             "napi": "10",
+             "nbytes": "0.1.1",
+             "ncrypto": "0.0.1",
+             "nghttp2": "1.64.0",
+             "openssl": "3.0.16",
+             "simdjson": "3.12.3",
+             "simdutf": "6.4.2",
+             "sqlite": "3.50.0",
+             "tz": "2025b",
+             "undici": "6.21.2",
+             "unicode": "16.0",
+             "uv": "1.51.0",
+             "uvwasi": "0.0.21",
+             "v8": "12.4.254.21-node.27",
+             "zlib": "1.3.0.1-motley-780819f",
+             "zstd": "1.5.7"
+           },
+           "range": "^24.11.0",
+           "msg": "Unsupported node environment detected. Please update your node version."
+         }
+       ]

@@ -1,4 +1,4 @@
-# minimal-reproduction-template
+# 41834, 41835, 41836
 
 First, read the [Renovate minimal reproduction instructions](https://github.com/renovatebot/renovate/blob/main/docs/development/minimal-reproductions.md).
 
@@ -6,12 +6,24 @@ Then replace the current `h1` with the Renovate Issue/Discussion number.
 
 ## Current behavior
 
-Explain the current behavior here.
+The updates are not being proposed and errors are being logged for invalid version.
+
+The command being run is:
+
+```shell
+LOG_LEVEL=debug npx renovate --platform=local > test.log
+```
 
 ## Expected behavior
 
-Explain the expected behavior here.
+i expect the following:
+
+- opentelemetry-helpers-mysql updated to 0.4.0
+- opentelemetry-api updated to 1.8.0
+- opentelemetry-common updated to 0.23.0
 
 ## Link to the Renovate issue or Discussion
 
-Put your link to the Renovate issue or Discussion here.
+- [Ruby custom manager not handling Pessimistic Version Constraint](https://github.com/renovatebot/renovate/discussions/41834)
+- [Ruby custom manager not handling Minimum Version Constraint](https://github.com/renovatebot/renovate/discussions/41835)
+- [Custom manager encoding > when in version](https://github.com/renovatebot/renovate/discussions/41836)

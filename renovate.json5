@@ -1,0 +1,66 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:best-practices",
+    "helpers:pinGitHubActionDigestsToSemver",
+    ":separateMultipleMajorReleases",
+  ],
+  rangeStrategy: "bump",
+  customManagers: [
+    {
+      customType: "regex",
+      description: "Update Pessimistic dependencies in gemspecs",
+      managerFilePatterns: ["**/*.gemspec"],
+      matchStrings: [
+        ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'~>\\s(?<depVersion>[0-9.]+)'",
+      ],
+      datasourceTemplate: "rubygems",
+      versioningTemplate: "ruby",
+      currentValueTemplate: "~> {{depVersion}}",
+    },
+    {
+      customType: "regex",
+      description: "Update Min dependencies in gemspecs",
+      managerFilePatterns: ["**/*.gemspec"],
+      matchStrings: [
+        ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'>=\\s(?<depVersion>[0-9.]+)'",
+      ],
+      datasourceTemplate: "rubygems",
+      versioningTemplate: "ruby",
+      currentValueTemplate: ">= {{depVersion}}",
+    },
+    {
+      customType: "regex",
+      description: "Update pinned dependencies in gemspecs",
+      managerFilePatterns: ["**/*.gemspec"],
+      matchStrings: [
+        ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>[0-9.]+)'",
+      ],
+      datasourceTemplate: "rubygems",
+      versioningTemplate: "ruby",
+      currentValueTemplate: "{{depVersion}}",
+    },
+    {
+      customType: "regex",
+      description: "Update dependencies in gemspecs",
+      managerFilePatterns: ["**/*.gemspec"],
+      matchStrings: [
+        ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(?<depVersion>(\\S+\\s)?[0-9.]+)'",
+      ],
+      datasourceTemplate: "rubygems",
+      versioningTemplate: "ruby",
+      currentValueTemplate: "{{depVersion}}",
+    },
+    {
+      customType: "regex",
+      description: "Expected dependencies in gemspecs",
+      managerFilePatterns: ["**/*.gemspec"],
+      matchStrings: [
+        ".add_(?<depType>.*dependency)\\s'(?<packageName>.+?)',\\s'(\\S+\\s)?(?<depVersion>[0-9.]+)'",
+      ],
+      datasourceTemplate: "rubygems",
+      versioningTemplate: "ruby",
+      currentValueTemplate: "{{depVersion}}",
+    },
+  ],
+}
