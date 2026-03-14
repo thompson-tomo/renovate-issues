@@ -18,9 +18,9 @@ LOG_LEVEL=debug npx renovate --platform=local > test.log
 
 i expect the following:
 
-- opentelemetry-helpers-mysql updated to 0.4.0
-- opentelemetry-api updated to 1.8.0
-- opentelemetry-common updated to 0.23.0
+- opentelemetry-helpers-mysql 0.3.0 updated to 0.4.0
+- opentelemetry-api 1.7 updated to 1.8
+- opentelemetry-common 0.21 updated to 0.23
 
 ## Link to the Renovate issue or Discussion
 
